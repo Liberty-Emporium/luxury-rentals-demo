@@ -1,0 +1,1 @@
+# No dependencies — pure static site served via Python's built-in HTTP server
