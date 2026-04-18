@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxeStay — Premium Vacation Rentals & Short-Term Stays</title>
+  <meta name="description" content="Discover handpicked luxury vacation rentals, Airbnb stays, and short-term properties. Book your dream getaway today.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold:    #d4a853;
+      --gold2:   #f0c678;
+      --bg:      #0b0b0e;
+      --surface: #13131a;
+      --surface2:#1a1a24;
+      --border:  rgba(255,255,255,0.07);
+      --text:    #f5f0e8;
+      --muted:   #9b9587;
+      --dim:     #5c5750;
+      --green:   #4ade80;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(11,11,14,0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-brand-icon { font-size: 1.5rem; }
+    .nav-brand-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+    .nav-brand-tag { font-size: 0.72rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; display: block; line-height: 1; margin-top: 1px; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; font-size: 0.88rem; }
+    .nav-links a { color: var(--muted); transition: color .15s; }
+    .nav-links a:hover { color: var(--text); }
+    .btn-nav { background: var(--gold); color: #0b0b0e; padding: 9px 22px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; transition: all .15s; }
+    .btn-nav:hover { background: var(--gold2); transform: translateY(-1px); }
+    @media(max-width:700px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 92vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem;
+      background:
+        linear-gradient(to bottom, rgba(11,11,14,0.3) 0%, rgba(11,11,14,0.7) 60%, var(--bg) 100%),
+        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1800&q=80') center/cover no-repeat;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(212,168,83,0.15); border: 1px solid rgba(212,168,83,0.35);
+      color: var(--gold); padding: 7px 18px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: .04em;
+      margin-bottom: 1.75rem; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 .gold { color: var(--gold); }
+    .hero p { font-size: 1.1rem; color: rgba(245,240,232,0.7); max-width: 520px; margin: 0 auto 2.5rem; }
+
+    /* Search bar */
+    .search-bar {
+      background: rgba(19,19,26,0.95); backdrop-filter: blur(12px);
+      border: 1px solid rgba(212,168,83,0.25);
+      border-radius: 16px; padding: 1.25rem 1.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      max-width: 780px; margin: 0 auto 2rem;
+      align-items: flex-end;
+    }
+    .search-field { flex: 1; min-width: 140px; }
+    .search-field label { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); margin-bottom: 5px; }
+    .search-field input, .search-field select {
+      width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.15);
+      color: var(--text); font-size: 0.9rem; padding: 6px 0; outline: none; font-family: 'Inter', sans-serif;
+    }
+    .search-field input::placeholder { color: var(--muted); }
+    .btn-search { background: var(--gold); color: #0b0b0e; border: none; border-radius: 10px;
+      padding: 12px 28px; font-weight: 700; font-size: 0.9rem; cursor: pointer; white-space: nowrap;
+      transition: all .15s; align-self: flex-end; }
+    .btn-search:hover { background: var(--gold2); transform: translateY(-1px); }
+
+    .hero-stats { display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .hero-stat { text-align: center; }
+    .hero-stat-val { font-size: 1.6rem; font-weight: 800; color: var(--gold); }
+    .hero-stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+
+    /* ── SECTION COMMONS ── */
+    .section { padding: 5rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); margin-bottom: .6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: .75rem; }
+    .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 500px; line-height: 1.7; }
+
+    /* ── PROPERTY CARDS ── */
+    .properties-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.75rem; margin-top: 3rem; }
+    .property-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; transition: transform .2s, border-color .2s;
+    }
+    .property-card:hover { transform: translateY(-5px); border-color: rgba(212,168,83,0.3); }
+    .property-img {
+      height: 220px; object-fit: cover; width: 100%;
+      background: var(--surface2);
+    }
+    .property-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .property-tags { display: flex; gap: 6px; margin-bottom: .75rem; flex-wrap: wrap; }
+    .tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; }
+    .tag-gold { background: rgba(212,168,83,0.15); color: var(--gold); border: 1px solid rgba(212,168,83,0.25); }
+    .tag-green { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+    .tag-blue { background: rgba(96,165,250,0.1); color: #60a5fa; border: 1px solid rgba(96,165,250,0.2); }
+    .property-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: .35rem; }
+    .property-location { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; display: flex; align-items: center; gap: 5px; }
+    .property-meta { display: flex; gap: 1rem; font-size: 0.82rem; color: var(--muted); margin-bottom: 1.1rem; flex-wrap: wrap; }
+    .property-meta span { display: flex; align-items: center; gap: 4px; }
+    .property-footer { display: flex; align-items: center; justify-content: space-between; }
+    .property-price { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+    .property-price span { font-size: 0.78rem; font-weight: 400; color: var(--muted); }
+    .btn-book { background: var(--gold); color: #0b0b0e; padding: 9px 20px; border-radius: 8px; font-weight: 700; font-size: 0.83rem; transition: all .15s; }
+    .btn-book:hover { background: var(--gold2); transform: translateY(-1px); }
+    .stars { color: #fbbf24; font-size: 0.82rem; }
+
+    /* ── WHY CHOOSE US ── */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .why-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; transition: border-color .2s; }
+    .why-card:hover { border-color: rgba(212,168,83,0.3); }
+    .why-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .why-title { font-weight: 700; font-size: 0.97rem; margin-bottom: .4rem; }
+    .why-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── AI SECTION ── */
+    .ai-section {
+      background: linear-gradient(135deg, rgba(212,168,83,0.08) 0%, rgba(212,168,83,0.03) 100%);
+      border-top: 1px solid rgba(212,168,83,0.15); border-bottom: 1px solid rgba(212,168,83,0.15);
+    }
+    .ai-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media(max-width:768px) { .ai-inner { grid-template-columns: 1fr; } }
+    .ai-points { list-style: none; display: flex; flex-direction: column; gap: .85rem; margin: 1.5rem 0 2rem; }
+    .ai-points li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--muted); }
+    .ai-points li::before { content: '✦'; color: var(--gold); flex-shrink: 0; margin-top: 2px; font-size: 0.75rem; }
+    .ai-chat-preview {
+      background: var(--surface); border: 1px solid rgba(212,168,83,0.2);
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .ai-chat-header { background: var(--gold); padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
+    .ai-chat-header-text .name { font-weight: 700; font-size: 0.95rem; color: #0b0b0e; }
+    .ai-chat-header-text .sub { font-size: 0.75rem; color: rgba(11,11,14,0.6); }
+    .ai-chat-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 10px; background: #f8f5ef; }
+    .ai-msg { padding: 10px 14px; border-radius: 14px; font-size: 0.83rem; line-height: 1.5; max-width: 86%; }
+    .ai-msg.bot { background: #fff; color: #1a1a1a; border: 1px solid #e8e0d4; border-bottom-left-radius: 3px; align-self: flex-start; }
+    .ai-msg.user { background: var(--gold); color: #0b0b0e; font-weight: 500; border-bottom-right-radius: 3px; align-self: flex-end; }
+    .ai-chat-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #e8e0d4; background: #fff; }
+    .ai-input-fake { flex: 1; background: #f3ede5; border-radius: 20px; padding: 8px 14px; font-size: 0.8rem; color: #9b9587; border: none; }
+    .ai-send-fake { width: 34px; height: 34px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; color: #0b0b0e; font-size: 14px; flex-shrink: 0; }
+
+    /* ── TESTIMONIALS ── */
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .testi { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .testi-stars { color: #fbbf24; margin-bottom: .75rem; font-size: 0.9rem; }
+    .testi-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .testi-av { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .testi-name { font-weight: 700; font-size: 0.88rem; }
+    .testi-where { font-size: 0.75rem; color: var(--dim); }
+
+    /* ── CTA BANNER ── */
+    .cta {
+      background: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(212,168,83,0.04));
+      border: 1px solid rgba(212,168,83,0.2); border-radius: 20px;
+      padding: 4rem 2rem; text-align: center; margin: 4rem 2rem;
+    }
+    .cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: .75rem; }
+    .cta p { color: var(--muted); max-width: 460px; margin: 0 auto 2rem; }
+    .btn-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: #0b0b0e; padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 1rem; transition: all .15s; }
+    .btn-cta:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-cta-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--gold); border: 1.5px solid rgba(212,168,83,0.4); padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 1rem; transition: all .15s; margin-left: 12px; }
+    .btn-cta-ghost:hover { background: rgba(212,168,83,0.08); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; }
+    @media(max-width:700px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); margin-bottom: .5rem; }
+    .footer-brand-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+    .footer-col h4 { font-weight: 700; font-size: 0.83rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-col li a { font-size: 0.85rem; color: var(--dim); transition: color .15s; }
+    .footer-col li a:hover { color: var(--text); }
+    .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--dim); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-icon">🏡</div>
+    <div>
+      <div class="nav-brand-name">LuxeStay</div>
+      <span class="nav-brand-tag">Premium Rentals</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#properties">Properties</a>
+    <a href="#about">Why Us</a>
+    <a href="#ai">AI Concierge</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#properties" class="btn-nav">Browse Rentals</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-badge">✦ Handpicked Luxury Properties</div>
+    <h1>Find Your Perfect<br><span class="gold">Luxury Escape</span></h1>
+    <p>Curated vacation rentals, Airbnb stays, and short-term properties in the world's most beautiful destinations.</p>
+
+    <div class="search-bar">
+      <div class="search-field">
+        <label>Destination</label>
+        <input type="text" placeholder="Miami, Paris, Malibu…">
+      </div>
+      <div class="search-field">
+        <label>Check In</label>
+        <input type="date">
+      </div>
+      <div class="search-field">
+        <label>Check Out</label>
+        <input type="date">
+      </div>
+      <div class="search-field" style="min-width:100px;max-width:110px;">
+        <label>Guests</label>
+        <select>
+          <option>1 Guest</option>
+          <option>2 Guests</option>
+          <option>3–4 Guests</option>
+          <option>5+ Guests</option>
+        </select>
+      </div>
+      <button class="btn-search">🔍 Search</button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-val">2,400+</div><div class="hero-stat-label">Properties</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">98%</div><div class="hero-stat-label">Guest Satisfaction</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">60+</div><div class="hero-stat-label">Destinations</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">24/7</div><div class="hero-stat-label">AI Concierge</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED PROPERTIES -->
+<section class="section" id="properties">
+  <div class="container">
+    <div class="section-eyebrow">Featured Properties</div>
+    <h2 class="section-title">Handpicked For You</h2>
+    <p class="section-sub">Every property is personally vetted for quality, comfort, and that wow factor.</p>
+
+    <div class="properties-grid">
+
+      <!-- Property 1 -->
+      <div class="property-card">
+        <img class="property-img" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80" alt="Miami Beach Villa">
+        <div class="property-body">
+          <div class="property-tags">
+            <span class="tag tag-gold">✦ Featured</span>
+            <span class="tag tag-green">✓ Instant Book</span>
+          </div>
+          <div class="property-name">Oceanfront Miami Villa</div>
+          <div class="property-location">📍 Miami Beach, Florida</div>
+          <div class="property-meta">
+            <span>🛏 4 Bedrooms</span>
+            <span>🛁 3 Baths</span>
+            <span>👥 8 Guests</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div class="stars">★★★★★ <span style="color:var(--muted);">4.97 (124)</span></div>
+          </div>
+          <div class="property-footer" style="margin-top:.75rem;">
+            <div class="property-price">$895 <span>/ night</span></div>
+            <a href="#" class="btn-book">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property 2 -->
+      <div class="property-card">
+        <img class="property-img" src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=600&q=80" alt="Manhattan Penthouse">
+        <div class="property-body">
+          <div class="property-tags">
+            <span class="tag tag-gold">✦ Luxury</span>
+            <span class="tag tag-blue">🏙 City View</span>
+          </div>
+          <div class="property-name">Manhattan Skyline Penthouse</div>
+          <div class="property-location">📍 New York City, New York</div>
+          <div class="property-meta">
+            <span>🛏 3 Bedrooms</span>
+            <span>🛁 2 Baths</span>
+            <span>👥 6 Guests</span>
+          </div>
+          <div><div class="stars">★★★★★ <span style="color:var(--muted);">4.95 (89)</span></div></div>
+          <div class="property-footer" style="margin-top:.75rem;">
+            <div class="property-price">$1,200 <span>/ night</span></div>
+            <a href="#" class="btn-book">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property 3 -->
+      <div class="property-card">
+        <img class="property-img" src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&q=80" alt="Malibu Beach House">
+        <div class="property-body">
+          <div class="property-tags">
+            <span class="tag tag-gold">✦ Beachfront</span>
+            <span class="tag tag-green">✓ Instant Book</span>
+          </div>
+          <div class="property-name">Malibu Pacific Coast House</div>
+          <div class="property-location">📍 Malibu, California</div>
+          <div class="property-meta">
+            <span>🛏 5 Bedrooms</span>
+            <span>🛁 4 Baths</span>
+            <span>👥 10 Guests</span>
+          </div>
+          <div><div class="stars">★★★★★ <span style="color:var(--muted);">4.99 (211)</span></div></div>
+          <div class="property-footer" style="margin-top:.75rem;">
+            <div class="property-price">$1,650 <span>/ night</span></div>
+            <a href="#" class="btn-book">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property 4 -->
+      <div class="property-card">
+        <img class="property-img" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Mountain Chalet">
+        <div class="property-body">
+          <div class="property-tags">
+            <span class="tag tag-gold">✦ Scenic</span>
+            <span class="tag tag-blue">🏔 Mountain View</span>
+          </div>
+          <div class="property-name">Aspen Mountain Chalet</div>
+          <div class="property-location">📍 Aspen, Colorado</div>
+          <div class="property-meta">
+            <span>🛏 6 Bedrooms</span>
+            <span>🛁 5 Baths</span>
+            <span>👥 12 Guests</span>
+          </div>
+          <div><div class="stars">★★★★★ <span style="color:var(--muted);">4.96 (67)</span></div></div>
+          <div class="property-footer" style="margin-top:.75rem;">
+            <div class="property-price">$2,100 <span>/ night</span></div>
+            <a href="#" class="btn-book">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property 5 -->
+      <div class="property-card">
+        <img class="property-img" src="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=600&q=80" alt="Tuscany Villa">
+        <div class="property-body">
+          <div class="property-tags">
+            <span class="tag tag-gold">✦ International</span>
+            <span class="tag tag-blue">🇮🇹 Italy</span>
+          </div>
+          <div class="property-name">Tuscany Hillside Villa</div>
+          <div class="property-location">📍 Siena, Tuscany, Italy</div>
+          <div class="property-meta">
+            <span>🛏 7 Bedrooms</span>
+            <span>🛁 6 Baths</span>
+            <span>👥 14 Guests</span>
+          </div>
+          <div><div class="stars">★★★★★ <span style="color:var(--muted);">5.0 (43)</span></div></div>
+          <div class="property-footer" style="margin-top:.75rem;">
+            <div class="property-price">$3,400 <span>/ night</span></div>
+            <a href="#" class="btn-book">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property 6 -->
+      <div class="property-card">
+        <img class="property-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Bali Villa">
+        <div class="property-body">
+          <div class="property-tags">
+            <span class="tag tag-gold">✦ Exotic</span>
+            <span class="tag tag-green">✓ Instant Book</span>
+          </div>
+          <div class="property-name">Bali Jungle Pool Villa</div>
+          <div class="property-location">📍 Ubud, Bali, Indonesia</div>
+          <div class="property-meta">
+            <span>🛏 3 Bedrooms</span>
+            <span>🛁 3 Baths</span>
+            <span>👥 6 Guests</span>
+          </div>
+          <div><div class="stars">★★★★★ <span style="color:var(--muted);">4.98 (156)</span></div></div>
+          <div class="property-footer" style="margin-top:.75rem;">
+            <div class="property-price">$485 <span>/ night</span></div>
+            <a href="#" class="btn-book">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section" id="about">
+    <div class="container">
+      <div class="section-eyebrow">Why LuxeStay</div>
+      <h2 class="section-title">The Difference Is In The Details</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🏆</div>
+          <div class="why-title">Vetted Properties Only</div>
+          <div class="why-desc">Every listing is personally inspected. If it doesn't meet our standards, it doesn't make the cut.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🤖</div>
+          <div class="why-title">24/7 AI Concierge</div>
+          <div class="why-desc">Our AI assistant answers your questions instantly — availability, pricing, local tips, anything.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🔑</div>
+          <div class="why-title">Seamless Check-In</div>
+          <div class="why-desc">Smart locks and digital keys mean no waiting around. Arrive and walk right in on your schedule.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💰</div>
+          <div class="why-title">Best Price Guarantee</div>
+          <div class="why-desc">Found it cheaper elsewhere? We'll match it. No questions asked.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🛡️</div>
+          <div class="why-title">$1M Protection</div>
+          <div class="why-desc">Every booking comes with full property damage protection and 24/7 emergency support.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⭐</div>
+          <div class="why-title">Superhost Standards</div>
+          <div class="why-desc">All our hosts maintain a 4.8+ rating. Consistency you can count on, every stay.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AI CONCIERGE SECTION -->
+<section class="section ai-section" id="ai">
+  <div class="container">
+    <div class="ai-inner">
+      <div>
+        <div class="section-eyebrow">AI Concierge</div>
+        <h2 class="section-title">Your Personal Travel Assistant, Available 24/7</h2>
+        <p class="section-sub">Have a question at 2am? Not sure which property sleeps 10? Need local restaurant recommendations? Just ask.</p>
+        <ul class="ai-points">
+          <li>Check availability and pricing instantly</li>
+          <li>Get personalized property recommendations</li>
+          <li>Ask about neighborhoods, amenities, pet policies</li>
+          <li>Get local tips — restaurants, beaches, hidden gems</li>
+          <li>Handle booking inquiries and special requests</li>
+        </ul>
+        <p style="font-size:0.85rem;color:var(--muted);">👇 <strong style="color:var(--gold);">Try it now</strong> — click the chat bubble in the bottom right corner</p>
+      </div>
+      <div>
+        <div class="ai-chat-preview">
+          <div class="ai-chat-header">
+            <div style="font-size:1.4rem;">🏡</div>
+            <div class="ai-chat-header-text">
+              <div class="name">LuxeStay Concierge</div>
+              <div class="sub">● Always available</div>
+            </div>
+          </div>
+          <div class="ai-chat-body">
+            <div class="ai-msg bot">Welcome to LuxeStay! 🌟 I'm your personal concierge. Where are you dreaming of staying?</div>
+            <div class="ai-msg user">Do you have anything beachfront in Miami for 6 people next month?</div>
+            <div class="ai-msg bot">Great choice! We have 3 beachfront Miami properties that sleep 6+. The Oceanfront Villa is most popular — 4 beds, private pool, steps from the sand at $895/night. Want me to check availability for your dates?</div>
+            <div class="ai-msg user">Yes! June 15–22</div>
+            <div class="ai-msg bot">June 15–22 is available! That's 7 nights at $895 = $6,265 total (cleaning + taxes included). Want me to reserve it for you? 🏖️</div>
+          </div>
+          <div class="ai-chat-input">
+            <div class="ai-input-fake">Ask about any property…</div>
+            <div class="ai-send-fake">➤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Guest Reviews</div>
+    <h2 class="section-title">What Our Guests Say</h2>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"The Miami villa was absolutely stunning. The AI concierge helped us find the perfect spot in minutes and even recommended the best sunset beach bar nearby. Will 100% book again."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:rgba(212,168,83,0.15);">👩</div>
+          <div><div class="testi-name">Amanda R.</div><div class="testi-where">Miami Beach stay · May 2026</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"We booked the Aspen chalet for a family of 10. The check-in was seamless, the property was exactly as pictured, and the 24/7 support resolved a small issue in under 10 minutes."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:rgba(96,165,250,0.15);">👨‍👩‍👧‍👦</div>
+          <div><div class="testi-name">The Morrison Family</div><div class="testi-where">Aspen Chalet · Feb 2026</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"I asked the AI at midnight if any Tuscany villas were pet-friendly. It found two options, explained the pet fees, and I booked in 5 minutes. Woke up with a confirmation. Magic."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:rgba(74,222,128,0.15);">🧑</div>
+          <div><div class="testi-name">David K.</div><div class="testi-where">Tuscany Villa · April 2026</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta" id="contact">
+  <h2>Ready to Find Your Perfect Stay?</h2>
+  <p>Browse 2,400+ handpicked properties or ask our AI concierge to find the perfect match for you.</p>
+  <a href="#properties" class="btn-cta">🏡 Browse Properties</a>
+  <a href="#ai" class="btn-cta-ghost">🤖 Ask the AI</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">🏡 LuxeStay</div>
+      <div class="footer-brand-desc">Premium vacation rentals and short-term stays in the world's most sought-after destinations. Powered by Alexander AI.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Properties</h4>
+      <ul>
+        <li><a href="#">Beach Houses</a></li>
+        <li><a href="#">City Apartments</a></li>
+        <li><a href="#">Mountain Retreats</a></li>
+        <li><a href="#">International Villas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Host With Us</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Cancellation Policy</a></li>
+        <li><a href="#">Safety</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 LuxeStay · Powered by <strong style="color:var(--gold);">Alexander AI Integrated Solutions</strong></span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<!-- 🤖 ALEXANDER AI AGENT WIDGET -->
+<script src="https://ai-agent-widget-production.up.railway.app/widget/Fx9e5L1JSpqJtjnhl2jLsQ.js"></script>
+
+</body>
+</html>
